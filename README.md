@@ -1,3 +1,14 @@
 # Contact-system
- A contact system created by C.Not everthing is great.so,i`m so pleasure to recieve advice,thx!\n
-用C语言编造的通讯录系统，欢迎大家提出建议！
+## To do list
+ We can manage information to record,show,alter,delete,insert,rank,save and so on by using it
+ ## Functions
+    a.record information 
+    b.show information
+    c.save information
+    d.delete information
+    e.alter information
+    f.research information
+        1.research by number
+        2.research by name
+        3.research by phone
+    g. exit

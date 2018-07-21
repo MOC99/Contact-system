@@ -1,5 +1,5 @@
 # Contact-system
-[中文README](https://github.com/MOC99/Contact-system/blob/master/README_zh.md)
+[中文README(有惊喜)](https://github.com/MOC99/Contact-system/blob/master/README_zh.md)
 ## To do list
  We can manage information to record,show,alter,delete,insert,rank,save and so on by using it
  ## Functions

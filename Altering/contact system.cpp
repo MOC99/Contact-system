@@ -63,9 +63,31 @@ struct User{
 };
 
 struct User * head = NULL;
-struct User * prev,* current;
+struct User * prev,* current,* tmp;
 
 int i = 0;
+
+void ReadData()
+{
+	FILE *fp;
+	head = current;
+	if((fp = fopen("my.txt","rb"))!=NULL)
+	{
+		tmp = (struct User *)malloc(sizeof(struct User));
+		for(;tmp->next != NULL;)
+		{
+			current = (struct User *)malloc(sizeof(struct User));
+			fread(current,sizeof(struct User),1,fp);
+			tmp->next = current->next;
+			if(head == NULL)
+				head = current;
+			else
+				prev->next = current;
+			current->next = NULL;
+			prev = current;
+		}
+	}
+}
 
 void User_printf()
 {
@@ -140,17 +162,7 @@ int main()
 		}
 		if(n_input == 'b')
 		{
-			FILE *fp;
-			head = current;
-			if((fp = fopen("my.txt","rb"))!=NULL)
-			{
-				do{
-					current = (struct User *)malloc(sizeof(struct User));
-					fread(current,sizeof(struct User),1,fp);
-					current = current->next;
-				}while(current != NULL);
-			}
-			free(current);
+			ReadData();
 			User_printf();
 		}
 		if(n_input == 'c')
@@ -163,7 +175,6 @@ int main()
 			{
 				fwrite(current,sizeof(struct User),1,fp);
 				current = current->next;
-				fprintf(fp,"\r\n");
 			}
 			fclose(fp);
 			free(current);
@@ -175,10 +186,8 @@ int main()
 			char a[3];
 			User_printf();
 			FILE *out;
-			//fin = fopen("my.txt","rb");
 			printf("Which one do want to delete?\n");
-			//char str[sizeof(User)];
-			printf("Please input the number:\n");
+			printf("Please input the number:");
 			scanf("%s",&n_del);
 			current = head;
 			for(;strcmp(n_del,current->num)!=0;)
@@ -206,10 +215,11 @@ int main()
 			}
 			fclose(out);
 			remove("my.txt");
-			//rename("temp.txt","my1.txt");
+			rename("temp.txt","my1.txt");
 		}
 		if(n_input == 'e')
 		{
+			ReadData();
 			User_printf();
 			printf("Which one do you want to alter?\n");
 			printf("Please enter the number:\n");
@@ -278,4 +288,3 @@ int main()
 	}
 
 }
-

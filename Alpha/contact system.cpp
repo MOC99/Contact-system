@@ -1,3 +1,11 @@
+/*
+	Name: Contact System
+	Copyright: 
+	Author: ZYXeeker
+	Date: 21/07/16 10:50
+	Description: 
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<memory.h>
@@ -7,41 +15,41 @@
 char Cover()
 {
 	printf("**********************************************************************\n");
-	printf("*                   »¶Ó­Ê¹ÓÃHNIEÍ¨Ñ¶Â¼¹ÜÀíÏµÍ³                       *\n");
+	printf("*                   æ¬¢è¿ä½¿ç”¨HNIEé€šè®¯å½•ç®¡ç†ç³»ç»Ÿ                       *\n");
 	printf("**********************************************************************\n");
-	printf("*>>>>ÇëÑ¡ÔñÏµÍ³¹¦ÄÜ£º                                                *\n");
-	printf("*                         a.Í¨Ñ¶ĞÅÏ¢Â¼Èë                             *\n");
-	printf("*                         b.Í¨Ñ¶ĞÅÏ¢ÏÔÊ¾                             *\n");	
-	printf("*                         c.Í¨Ñ¶ĞÅÏ¢±£´æ                             *\n");
-	printf("*                         d.Í¨Ñ¶ĞÅÏ¢É¾³ı                             *\n");
-	printf("*                         e.Í¨Ñ¶ĞÅÏ¢ĞŞ¸Ä                             *\n");
-	printf("*                         f.Í¨Ñ¶ĞÅÏ¢²éÑ¯                             *\n");
-	printf("*                         g.ÍË³öÏµÍ³                                 *\n");
+	printf("*>>>>è¯·é€‰æ‹©ç³»ç»ŸåŠŸèƒ½ï¼š                                                *\n");
+	printf("*                         a.é€šè®¯ä¿¡æ¯å½•å…¥                             *\n");
+	printf("*                         b.é€šè®¯ä¿¡æ¯æ˜¾ç¤º                             *\n");	
+	printf("*                         c.é€šè®¯ä¿¡æ¯ä¿å­˜                             *\n");
+	printf("*                         d.é€šè®¯ä¿¡æ¯åˆ é™¤                             *\n");
+	printf("*                         e.é€šè®¯ä¿¡æ¯ä¿®æ”¹                             *\n");
+	printf("*                         f.é€šè®¯ä¿¡æ¯æŸ¥è¯¢                             *\n");
+	printf("*                         g.é€€å‡ºç³»ç»Ÿ                                 *\n");
 	printf("**********************************************************************\n");
-	printf(">>>ÇëÊäÈëÏàÓ¦¹¦ÄÜµÄ´úºÅ£º\n");
+	printf(">>>è¯·è¾“å…¥ç›¸åº”åŠŸèƒ½çš„ä»£å·ï¼š\n");
 }
 
 char Cover1()
 {
 	printf("			**********************\n");
-	printf("			* 1.°´±àºÅ²éÑ¯       *\n");
+	printf("			* 1.æŒ‰ç¼–å·æŸ¥è¯¢       *\n");
 	printf("			**********************\n");
-	printf("			* 2.°´ĞÕÃû²éÑ¯       *\n");
+	printf("			* 2.æŒ‰å§“åæŸ¥è¯¢       *\n");
 	printf("			**********************\n");
-	printf("			* 3.°´µç»°ºÅÂë²éÑ¯   *\n");
+	printf("			* 3.æŒ‰ç”µè¯å·ç æŸ¥è¯¢   *\n");
 	printf("			**********************\n");
 }
 
 char Image_user()
 {
 	printf("************************************\n");
-	printf("*     _____      *       ±àºÅ      *\n");
+	printf("*     _____      *       ç¼–å·      *\n");
 	printf("*   /       \\    *******************\n");
-	printf("*  |         |   *       ĞÕÃû      *\n");
+	printf("*  |         |   *       å§“å      *\n");
 	printf("*  |         |   *******************\n");
-	printf("*   \\ _____ /    *     µç»°ºÅÂë    *\n");
+	printf("*   \\ _____ /    *     ç”µè¯å·ç     *\n");
 	printf("*   /\\ / \\ /\\    *******************\n");
-	printf("*  /  \\   /  \\   *       µØÖ·      *\n");
+	printf("*  /  \\   /  \\   *       åœ°å€      *\n");
 	printf("************************************\n");
 	
 }
@@ -94,7 +102,7 @@ int main()
                 printf("\n");
             //for(i=0;i<20;i++)
               //  printf(" ");
-            printf("ÏµÍ³Æô¶¯ÖĞ£¬ÇëÉÔºó");
+            printf("ç³»ç»Ÿå¯åŠ¨ä¸­ï¼Œè¯·ç¨å");
         }
         delay(5000);
         printf(">");
@@ -114,7 +122,7 @@ int main()
 		if(n_input == 'a')
 		{
 			Image_user();
-			printf("Çë°´Ë³ĞòÊäÈë:\n");
+			printf("è¯·æŒ‰é¡ºåºè¾“å…¥:\n");
 			Save_user();
 		}
 		if(n_input == 'b')
@@ -134,16 +142,16 @@ int main()
 				fwrite(&users[i],sizeof(struct User),1,fp);
 				//fprintf(fp,"\r\n");
 			fclose(fp);
-			printf("±£´æ³É¹¦£¡\n");
+			printf("ä¿å­˜æˆåŠŸï¼\n");
 		} 
 		if(n_input == 'd')
 		{
 			User_printf();
 			FILE *fop;
 			//fin = fopen("my.txt","rb");
-			printf("ÄãÒªÉ¾³ıÄÄ¸ö?\n");
+			printf("ä½ è¦åˆ é™¤å“ªä¸ª?\n");
 			//char str[sizeof(User)];
-			printf("ÇëÊäÈëÊı×Ö:\n");
+			printf("è¯·è¾“å…¥æ•°å­—:\n");
 			scanf("%d",&n_del);
 			for(i = 1;i<11;i++)
 				{
@@ -187,17 +195,17 @@ int main()
 		if(n_input == 'e')
 		{
 			User_printf();
-			printf("ÄãÒªĞŞ¸ÄÄÇ¸ö£¿\n");
-			printf("ÇëÊäÈë±àºÅ£º\n");
+			printf("ä½ è¦ä¿®æ”¹é‚£ä¸ªï¼Ÿ\n");
+			printf("è¯·è¾“å…¥ç¼–å·ï¼š\n");
 			scanf("%s",&n_num);
 			for(i = 1;i<11;i++)
 			{
 				if(strcmp(users[i].num,n_num)==0)
 				{
-					printf("ÇëÑ¡ÔñĞŞ¸ÄÏîÄ¿:\n");
-					printf("1.ĞÕÃû\n2.µç»°\n3.µØÖ·\n");
+					printf("è¯·é€‰æ‹©ä¿®æ”¹é¡¹ç›®:\n");
+					printf("1.å§“å\n2.ç”µè¯\n3.åœ°å€\n");
 				 	scanf("%d",&n_choose);
-				 	printf("ÇëÊäÈëĞŞ¸ÄµÄ²ÎÊı:\n"); 
+				 	printf("è¯·è¾“å…¥ä¿®æ”¹çš„å‚æ•°:\n"); 
 					if(n_choose==1)
 					{
 						scanf("%s",&users[i].name);
@@ -212,7 +220,7 @@ int main()
 					}
 				}
 			}
-			printf("ĞŞ¸Ä³É¹¦\n");
+			printf("ä¿®æ”¹æˆåŠŸ\n");
 		}
 		if(n_input == 'f')
 		{
@@ -221,11 +229,11 @@ int main()
 				for(i = 1;i<11;i++)
 					fread(&users[i],sizeof(struct User),1,fp);
 			Cover1();
-			printf(">>>ÇëÊäÈë¹¦ÄÜ±àºÅ£º\n");
+			printf(">>>è¯·è¾“å…¥åŠŸèƒ½ç¼–å·ï¼š\n");
 			scanf("%d",&n1_choose);
 			if(n1_choose == 1)
 			{
-				printf(">>ÇëÊäÈë²éÑ¯±àºÅ£º\n");
+				printf(">>è¯·è¾“å…¥æŸ¥è¯¢ç¼–å·ï¼š\n");
 				scanf("%s",&num_input);
 				for(i = 1;i<11;i++)
 				if(strcmp(users[i].num,num_input)==0)
@@ -235,7 +243,7 @@ int main()
 			if(n1_choose == 2)
 			{
 				scanf("%s",&name_input);
-				printf(">>ÇëÊäÈë²éÑ¯ĞÕÃû£º\n");
+				printf(">>è¯·è¾“å…¥æŸ¥è¯¢å§“åï¼š\n");
 				for(i = 1;i<11;i++)
 				if(strcmp(users[i].name,name_input)==0)
 					printf("%s %s %s\n",users[i].name,users[i].phone,users[i].add);
@@ -243,7 +251,7 @@ int main()
 			if(n1_choose == 3)
 			{
 				scanf("%s",&phone_input);
-				printf(">>ÇëÊäÈë²éÑ¯µç»°ºÅÂë£º\n");
+				printf(">>è¯·è¾“å…¥æŸ¥è¯¢ç”µè¯å·ç ï¼š\n");
 				for(i = 1;i<11;i++)
 				if(strcmp(users[i].phone,phone_input)==0)
 					printf("%s %s %s\n",users[i].name,users[i].phone,users[i].add);
@@ -253,7 +261,7 @@ int main()
 			exit(0);
 		getchar();
 		system("pause");
-		system("cls");			//ÇåÆÁ 
+		system("cls");			//æ¸…å± 
 		Cover();
 	}
 

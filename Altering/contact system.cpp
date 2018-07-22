@@ -2,7 +2,7 @@
 	Name: Contact System
 	Copyright: 
 	Author: ZYXeeker
-	Date: 21/07/18 10:50
+	Date: 22/07/18 11:10
 	Description: 
 */
 
@@ -87,6 +87,7 @@ void ReadData()
 			prev = current;
 		}
 	}
+	free(tmp);
 }
 
 void User_printf()
@@ -184,6 +185,7 @@ int main()
 		{
 			struct User * temp = NULL;
 			char a[3];
+			ReadData();
 			User_printf();
 			FILE *out;
 			printf("Which one do want to delete?\n");
@@ -191,14 +193,34 @@ int main()
 			scanf("%s",&n_del);
 			current = head;
 			for(;strcmp(n_del,current->num)!=0;)
+			{
 				current = current->next;
-			temp = current->next;
+				tmp = current;
+			}
+			if(head == current)
+			{
+				current = current->next;
+				head = current;
+				current = NULL;
+				int i;
+				i=1;
+			}
+			if(i != 1)
+			{
+				if(current->next != NULL)
+				{
+					for(;strcmp(n_del,current->num) > 0;)
+						current = current->next;
+					current->next = tmp->next;
+				}
+				else
+				{
+					for(;strcmp(n_del,current->num) > 0;)
+						current = current->next;
+					current->next = NULL;
+				}
+			}
 			free(current);
-			current = head;
-			while(strcmp(n_del,current->num)>0)
-				current = current->next;
-			current->next = temp;
-			free(temp);
 			current = head;
 			while(current->next == NULL)
 			{

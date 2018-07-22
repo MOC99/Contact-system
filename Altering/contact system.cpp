@@ -2,7 +2,7 @@
 	Name: Contact System
 	Copyright: 
 	Author: ZYXeeker
-	Date: 22/07/18 11:10
+	Date: 21/07/18 10:50
 	Description: 
 */
 
@@ -184,6 +184,7 @@ int main()
 		if(n_input == 'd')
 		{
 			struct User * temp = NULL;
+			i = 0;
 			char a[3];
 			ReadData();
 			User_printf();
@@ -202,25 +203,40 @@ int main()
 				current = current->next;
 				head = current;
 				current = NULL;
-				int i;
 				i=1;
 			}
 			if(i != 1)
 			{
 				if(current->next != NULL)
 				{
-					for(;strcmp(n_del,current->num) > 0;)
+					current = head;
+					for(;strcmp(n_del,current->num) < 0;)
 						current = current->next;
 					current->next = tmp->next;
 				}
 				else
 				{
-					for(;strcmp(n_del,current->num) > 0;)
+					current = head;
+					for(;strcmp(n_del,current->num) < 0;)
 						current = current->next;
 					current->next = NULL;
 				}
 			}
 			free(current);
+			//free(tmp);
+
+			
+			/*
+			current = head;
+			for(;strcmp(n_del,current->num)!=0;)
+				current = current->next;
+			temp = current->next;
+			free(current);
+			current = head;
+			while(strcmp(n_del,current->num)>0)
+				current = current->next;
+			current->next = temp;
+			free(temp);*/
 			current = head;
 			while(current->next == NULL)
 			{

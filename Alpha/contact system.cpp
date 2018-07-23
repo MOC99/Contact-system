@@ -130,7 +130,7 @@ int main()
 {
 	int i,k_start,t_start;
     t_start = i = k_start = 0;
-    /*while(t_start < 50)
+    while(t_start < 50)
     {
         if(k_start ==0)
         {
@@ -147,7 +147,7 @@ int main()
         if(k_start==50)
             k_start = 0;
 		t_start++;
-    }*/
+    }
 	system("cls");
 	Cover();
 	i = 1;

@@ -8,8 +8,8 @@
     c.save information
     d.delete information
     e.alter information
-    f.research information
-        1.research by number
-        2.research by name
-        3.research by phone
+    f.search information
+        1.search by number
+        2.search by name
+        3.search by phone
     g. exit

@@ -2,7 +2,7 @@
 	Name: Contact System
 	Copyright: 
 	Author: ZYXeeker
-	Date: 21/07/18 10:50
+	Date: 23/07/18 17:00
 	Description: 
 */
 
@@ -15,7 +15,7 @@
 char Cover()
 {
 	printf("**********************************************************************\n");
-	printf("*                   欢迎使用HNIE通讯录管理系统                       *\n");
+	printf("*                   欢迎使用ZYXeeker通讯录管理系统                   *\n");
 	printf("**********************************************************************\n");
 	printf("*>>>>请选择系统功能：                                                *\n");
 	printf("*                         a.通讯信息录入                             *\n");
@@ -69,15 +69,15 @@ int i = 0;
 
 void ReadData()
 {
-	FILE *fp;
+	FILE *fin;
 	head = current;
-	if((fp = fopen("my.txt","rb"))!=NULL)
+	if((fin = fopen("my.txt","rb"))!=NULL)
 	{
 		tmp = (struct User *)malloc(sizeof(struct User));
 		for(;tmp->next != NULL;)
 		{
 			current = (struct User *)malloc(sizeof(struct User));
-			fread(current,sizeof(struct User),1,fp);
+			fread(current,sizeof(struct User),1,fin);
 			tmp->next = current->next;
 			if(head == NULL)
 				head = current;
@@ -90,6 +90,20 @@ void ReadData()
 	free(tmp);
 }
 
+void SaveData()
+{
+	FILE *fout;
+	fout = fopen("my.txt","wb");
+	current = head;		
+	while(current != NULL)
+	{
+		fwrite(current,sizeof(struct User),1,fout);
+		current = current->next;
+	}
+	fclose(fout);
+	free(current);
+	printf("success！\n");
+}
 void User_printf()
 {
 	current = head;
@@ -168,18 +182,7 @@ int main()
 		}
 		if(n_input == 'c')
 		{
-			//char ch[]="\r\n";
-			FILE *fp;
-			fp=fopen("my.txt","wb");
-			current = head;
-			while(current != NULL)
-			{
-				fwrite(current,sizeof(struct User),1,fp);
-				current = current->next;
-			}
-			fclose(fp);
-			free(current);
-			printf("success！\n");
+			SaveData();
 		} 
 		if(n_input == 'd')
 		{
@@ -189,7 +192,6 @@ int main()
 			char a[3];
 			ReadData();
 			User_printf();
-			FILE *out;
 			printf("Which one do want to delete?\n");
 			printf("Please input the number:");
 			scanf("%s",&n_del);
@@ -239,16 +241,7 @@ int main()
 				current = current->next;
 			}
 			while(k != 1);
-			out = fopen("temp.txt","wb");
-			current = head;
-			while(current != NULL)
-			{
- 				fwrite(current,sizeof(struct User),1,out);
-				current = current->next;
-			}
-			fclose(out);
-			remove("my.txt");
-			rename("temp.txt","my1.txt");
+			SaveData();
 		}
 		if(n_input == 'e')
 		{
@@ -258,7 +251,7 @@ int main()
 			printf("Please enter the number:\n");
 			scanf("%s",&n_num);
 			current = head;
-			while(strcmp(n_del,current->num) == 0)
+			while(strcmp(n_num,current->num) != 0)
 				current = current->next;
 			printf("Please choose the number:\n");
 			printf("1.name\n2.phone\n3.address\n");
@@ -270,15 +263,13 @@ int main()
 				scanf("%s",&current->phone);
 			if(n_choose==3)
 				scanf("%s",&current->add);
-			printf("success!\n");
-			free(current);
+			printf("Saving...\n");
+			SaveData();
 		}
 		if(n_input == 'f')
 		{
 			FILE *fp;
-			if((fp = fopen("my.txt","rb"))!=NULL)
-				
-					fread(current,sizeof(struct User),1,fp);
+			ReadData();
 			Cover1();
 			printf(">>>Please choose the number:\n");
 			scanf("%d",&n1_choose);
@@ -287,7 +278,7 @@ int main()
 				printf(">>Enter the number:\n");
 				scanf("%s",&num_input);
 				current = head;
-				while(strcmp(n_del,current->num)!=0)
+				while(strcmp(num_input,current->num) != 0)
 					current = current->next;
 				printf("%s %s %s\n",current->name,current->phone,current->add);
 				free(current);
@@ -297,7 +288,7 @@ int main()
 				printf(">>enter name:\n");
 				scanf("%s",&name_input);
 				current = head;
-				while(strcmp(name_input,current->name)!=0)
+				while(strcmp(name_input,current->name) != 0)
 					current = current->next;
 				printf("%s %s %s\n",current->name,current->phone,current->add);
 				free(current);
@@ -306,7 +297,7 @@ int main()
 			{
 				printf(">>enter phone:\n");
 				scanf("%s",&phone_input);
-				while(strcmp(name_input,current->name)!=0)
+				while(strcmp(phone_input,current->phone) != 0)
 					current = current->next;
 				printf("%s %s %s\n",current->name,current->phone,current->add);
 				free(current);
@@ -316,7 +307,7 @@ int main()
 			exit(0);
 		getchar();
 		system("pause");
-		system("cls");			//清屏 
+		system("cls");			 
 		Cover();
 	}
 

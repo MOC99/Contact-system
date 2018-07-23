@@ -185,6 +185,7 @@ int main()
 		{
 			struct User * temp = NULL;
 			i = 0;
+			int tmp_del,k;
 			char a[3];
 			ReadData();
 			User_printf();
@@ -207,48 +208,42 @@ int main()
 			}
 			if(i != 1)
 			{
+				sscanf(n_del,"%d",&tmp_del);
+				tmp_del = tmp_del - 1;
+				sprintf(n_del,"%d",tmp_del);
 				if(current->next != NULL)
 				{
 					current = head;
-					for(;strcmp(n_del,current->num) < 0;)
+					for(;strcmp(n_del,current->num) != 0;)
 						current = current->next;
 					current->next = tmp->next;
 				}
 				else
 				{
 					current = head;
-					for(;strcmp(n_del,current->num) < 0;)
+					for(;strcmp(n_del,current->num) != 0;)
 						current = current->next;
 					current->next = NULL;
 				}
 			}
-			free(current);
-			//free(tmp);
-
-			
-			/*
 			current = head;
-			for(;strcmp(n_del,current->num)!=0;)
-				current = current->next;
-			temp = current->next;
-			free(current);
-			current = head;
-			while(strcmp(n_del,current->num)>0)
-				current = current->next;
-			current->next = temp;
-			free(temp);*/
-			current = head;
-			while(current->next == NULL)
+			i = 1;
+			do
 			{
-				for(i = 1;;i++)
-					sprintf(current->num,"success",i);
+				sprintf(current->num,"%d",i);
+				i++;
+				if(current->next == NULL)
+					k = 1;
+				else
+					k = 0;
 				current = current->next;
 			}
+			while(k != 1);
 			out = fopen("temp.txt","wb");
 			current = head;
 			while(current != NULL)
 			{
-				fwrite(current,sizeof(struct User),1,out);
+ 				fwrite(current,sizeof(struct User),1,out);
 				current = current->next;
 			}
 			fclose(out);
@@ -263,7 +258,7 @@ int main()
 			printf("Please enter the number:\n");
 			scanf("%s",&n_num);
 			current = head;
-			while(strcmp(n_del,current->num)!=0)
+			while(strcmp(n_del,current->num) == 0)
 				current = current->next;
 			printf("Please choose the number:\n");
 			printf("1.name\n2.phone\n3.address\n");
@@ -275,7 +270,7 @@ int main()
 				scanf("%s",&current->phone);
 			if(n_choose==3)
 				scanf("%s",&current->add);
-			printf("success\n");
+			printf("success!\n");
 			free(current);
 		}
 		if(n_input == 'f')

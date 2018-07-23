@@ -1,3 +1,11 @@
+/*
+	Name: Contact System
+	Copyright: ZYXeeker
+	Author: ZYXeeker
+	Date: 23/07/18 20:48
+	Description: Contact System
+*/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<memory.h>
@@ -51,28 +59,64 @@ struct User{
 	char name[20];
 	char phone[13];
 	char add[20];
-}users[10];
+	struct User * next;
+};
+
+struct User * head = NULL;
+struct User * prev,* current,* tmp;
 
 int i = 0;
 
-void Save_user()
+void ReadData()
 {
-	if(users[i].num != 0)
-		i++;
-	scanf("%s %s %s %s",&users[i].num,&users[i].name,&users[i].phone,&users[i].add);
+	FILE *fin;
+	head = current;
+	if((fin = fopen("my.txt","rb"))!=NULL)
+	{
+		tmp = (struct User *)malloc(sizeof(struct User));
+		for(;tmp->next != NULL;)
+		{
+			current = (struct User *)malloc(sizeof(struct User));
+			fread(current,sizeof(struct User),1,fin);
+			tmp->next = current->next;
+			if(head == NULL)
+				head = current;
+			else
+				prev->next = current;
+			current->next = NULL;
+			prev = current;
+		}
+	}
+	free(tmp);
 }
 
+void SaveData()
+{
+	FILE *fout;
+	fout = fopen("my.txt","wb");
+	current = head;		
+	while(current != NULL)
+	{
+		fwrite(current,sizeof(struct User),1,fout);
+		current = current->next;
+	}
+	fclose(fout);
+	free(current);
+	printf("successÔºÅ\n");
+}
 void User_printf()
 {
-
-	for(i = 1;i<11;i++)
-			{
-			Image_user();
-			printf("%s\n",users[i].num);
-			printf("%s\n",users[i].name);
-			printf("%s\n",users[i].phone);
-			printf("%s\n",users[i].add);
-			}
+	current = head;
+	while(current != NULL)
+	{
+		Image_user();
+		printf("%s\n",current->num);
+		printf("%s\n",current->name);
+		printf("%s\n",current->phone);
+		printf("%s\n",current->add);
+		current = current->next;	
+	}
+	free(current);
 }
 
 void delay(long int number)
@@ -107,155 +151,164 @@ int main()
 	system("cls");
 	Cover();
 	i = 1;
-	char n_input,n_num[3],num_input[3],name_input[20],phone_input[13]/*,add_input[20]*/;
-	int n_del,n_choose,n1_choose;
+	char n_input,n_num[3],num_input[3],name_input[20],phone_input[13],n_del[3];
+	int n_choose,n1_choose;
 	while(scanf("%c",&n_input)!=EOF)
 	{
 		if(n_input == 'a')
 		{
-			Image_user();
-			printf("please enter by their location:\n");
-			Save_user();
+			int j = 1;
+			while(j == 1)
+			{
+				current = (struct User *)malloc(sizeof(struct User));
+				if(head == NULL)
+					head = current;
+				else
+					prev->next = current;
+				current->next = NULL;
+				Image_user();
+				puts("please enter by their location:");
+				scanf("%s %s %s %s",&current->num,&current->name,&current->phone,&current->add);
+				prev = current;
+				puts("Do you want to input next?enter 1 to continue or 0 to exit");
+				scanf("%d",&j);
+				system("cls");
+			}
 		}
 		if(n_input == 'b')
 		{
-			FILE *fp;
-			if((fp = fopen("my.txt","rb"))!=NULL)
-				for(i = 1;i<11;i++)
-					fread(&users[i],sizeof(struct User),1,fp);
+			ReadData();
 			User_printf();
 		}
 		if(n_input == 'c')
 		{
-			//char ch[]="\r\n";
-			FILE *fp;
-			fp=fopen("my.txt","wb");
-			for(i = 1;i<11;i++)
-				fwrite(&users[i],sizeof(struct User),1,fp);
-				//fprintf(fp,"\r\n");
-			fclose(fp);
-			printf("Success!\n");
+			SaveData();
 		} 
 		if(n_input == 'd')
 		{
+			struct User * temp = NULL;
+			i = 0;
+			int tmp_del,k;
+			char a[3];
+			ReadData();
 			User_printf();
-			FILE *fop;
-			//fin = fopen("my.txt","rb");
 			printf("Which one do want to delete?\n");
-			//char str[sizeof(User)];
-			printf("Please input the number:\n");
-			scanf("%d",&n_del);
-			for(i = 1;i<11;i++)
-				{
-					if(i==n_del)
-					{
-						//memset(users[i].num,'\0',sizeof(char) * 3);
-						memset(users[i].name,'\0',sizeof(char) * 20);
-						memset(users[i].phone,'\0',sizeof(char) * 13);
-						memset(users[i].add,'\0',sizeof(char) * 20);
-					}
-				}
-			for(i = 1;i<11;i++)
+			printf("Please input the number:");
+			scanf("%s",&n_del);
+			current = head;
+			for(;strcmp(n_del,current->num)!=0;)
 			{
-				if(users[i].name[0]=='\0'&&users[i+1].name[0]!='\0')				{
-					strcpy(users[i].name,users[i+1].name);
-					strcpy(users[i].phone,users[i+1].phone);
-					strcpy(users[i].add,users[i+1].add);
-				}
-				if(users[i].name[0]==users[i+1].name[0])
+				current = current->next;
+				tmp = current;
+			}
+			if(head == current)
+			{
+				current = current->next;
+				head = current;
+				current = NULL;
+				i=1;
+			}
+			if(i != 1)
+			{
+				sscanf(n_del,"%d",&tmp_del);
+				tmp_del = tmp_del - 1;
+				sprintf(n_del,"%d",tmp_del);
+				if(current->next != NULL)
 				{
-					strcpy(users[i+1].name,users[i+2].name);
-					strcpy(users[i+1].phone,users[i+2].phone);
-					strcpy(users[i+1].add,users[i+2].add);
+					current = head;
+					for(;strcmp(n_del,current->num) != 0;)
+						current = current->next;
+					current->next = tmp->next;
 				}
-				if(i==4)
+				else
 				{
-					memset(users[i].num,'\0',sizeof(char) * 3);
-					memset(users[i].name,'\0',sizeof(char) * 20);
-					memset(users[i].phone,'\0',sizeof(char) * 13);
-					memset(users[i].add,'\0',sizeof(char) * 20);
+					current = head;
+					for(;strcmp(n_del,current->num) != 0;)
+						current = current->next;
+					current->next = NULL;
 				}
 			}
-			fop=fopen("temp.txt","wb");
-			for (i = 1;i<11;i++)
-				fwrite(&users[i],sizeof(struct User),1,fop);
-			fclose(fop);
-			//fclose(fin);
-			remove("my.txt");
-			rename("temp.txt","my1.txt");
+			current = head;
+			i = 1;
+			do
+			{
+				sprintf(current->num,"%d",i);
+				i++;
+				if(current->next == NULL)
+					k = 1;
+				else
+					k = 0;
+				current = current->next;
+			}
+			while(k != 1);
+			SaveData();
 		}
 		if(n_input == 'e')
 		{
+			ReadData();
 			User_printf();
 			printf("Which one do you want to alter?\n");
 			printf("Please enter the number:\n");
 			scanf("%s",&n_num);
-			for(i = 1;i<11;i++)
-			{
-				if(strcmp(users[i].num,n_num)==0)
-				{
-					printf("Please choose the number:\n");
-					printf("1.name\n2.phone\n3.address\n");
-				 	scanf("%d",&n_choose);
-				 	printf("please enter the data:\n"); 
-					if(n_choose==1)
-					{
-						scanf("%s",&users[i].name);
-					}
-					if(n_choose==2)
-					{
-						scanf("%s",&users[i].phone);
-					}
-					if(n_choose==3)
-					{
-						scanf("%s",&users[i].add);
-					}
-				}
-			}
-			printf("Success!\n");
+			current = head;
+			while(strcmp(n_num,current->num) != 0)
+				current = current->next;
+			printf("Please choose the number:\n");
+			printf("1.name\n2.phone\n3.address\n");
+			scanf("%d",&n_choose);
+		 	printf("please enter the data:\n"); 
+			if(n_choose==1)
+				scanf("%s",&current->name);
+			if(n_choose==2)
+				scanf("%s",&current->phone);
+			if(n_choose==3)
+				scanf("%s",&current->add);
+			printf("Saving...\n");
+			SaveData();
 		}
 		if(n_input == 'f')
 		{
 			FILE *fp;
-			if((fp = fopen("my.txt","rb"))!=NULL)
-				for(i = 1;i<11;i++)
-					fread(&users[i],sizeof(struct User),1,fp);
+			ReadData();
 			Cover1();
-			printf(">>>Enter the number:\n");
+			printf(">>>Please choose the number:\n");
 			scanf("%d",&n1_choose);
 			if(n1_choose == 1)
 			{
 				printf(">>Enter the number:\n");
 				scanf("%s",&num_input);
-				for(i = 1;i<11;i++)
-				if(strcmp(users[i].num,num_input)==0)
-					printf("%s %s %s\n",users[i].name,users[i].phone,users[i].add);
-				
+				current = head;
+				while(strcmp(num_input,current->num) != 0)
+					current = current->next;
+				printf("%s %s %s\n",current->name,current->phone,current->add);
+				free(current);
 			}
 			if(n1_choose == 2)
 			{
-				scanf("%s",&name_input);
 				printf(">>Enter the name:\n");
-				for(i = 1;i<11;i++)
-				if(strcmp(users[i].name,name_input)==0)
-					printf("%s %s %s\n",users[i].name,users[i].phone,users[i].add);
+				scanf("%s",&name_input);
+				current = head;
+				while(strcmp(name_input,current->name) != 0)
+					current = current->next;
+				printf("%s %s %s\n",current->name,current->phone,current->add);
+				free(current);
 			}
 			if(n1_choose == 3)
 			{
-				scanf("%s",&phone_input);
 				printf(">>Enter the phone:\n");
-				for(i = 1;i<11;i++)
-				if(strcmp(users[i].phone,phone_input)==0)
-					printf("%s %s %s\n",users[i].name,users[i].phone,users[i].add);
+				scanf("%s",&phone_input);
+				while(strcmp(phone_input,current->phone) != 0)
+					current = current->next;
+				printf("%s %s %s\n",current->name,current->phone,current->add);
+				free(current);
 			}
 		}
 		if(n_input == 'g')
 			exit(0);
 		getchar();
 		system("pause");
-		system("cls");			//«Â∆¡ 
+		system("cls");			 
 		Cover();
 	}
 
 }
-
